@@ -1,10 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useHistory } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
 function NavbarTop() {
+  let history = useHistory();
+
+  const logout = () => {
+    localStorage.clear();
+    console.log("clear");
+    history.replace("/");
+  };
+
   return (
     <>
       <Navbar variant="light" expand="sm">
@@ -27,6 +35,15 @@ function NavbarTop() {
               About
             </Nav.Link>
           </Nav>
+          {localStorage.getItem("access") ? (
+            <Nav>
+              <Button variant="danger" size="sm" onClick={() => logout()}>
+                Logout
+              </Button>
+            </Nav>
+          ) : (
+            <br />
+          )}
         </Navbar.Collapse>
       </Navbar>
     </>

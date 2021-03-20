@@ -27,7 +27,7 @@ function Login() {
         console.log(resp);
         localStorage.setItem("refresh", resp.data.refresh);
         localStorage.setItem("access", resp.data.access);
-        history.push("/");
+        history.replace("/");
         toast.info("Welcome");
       })
       .catch(({ request }) => {
