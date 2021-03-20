@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+form {
+    display:inline-block;
+    min-width: 40%;
+}
