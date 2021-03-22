@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 toast.configure();
 
-function Login() {
+function Login({ globalLogin }) {
   let history = useHistory();
   const [user, setUser] = useState({
     email: "",
@@ -22,17 +22,20 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(globalLogin);
     Axios.post("http://localhost:8000/api/login", user)
       .then((resp) => {
-        console.log(resp);
-        localStorage.setItem("refresh", resp.data.refresh);
-        localStorage.setItem("access", resp.data.access);
-        history.replace("/");
+        globalLogin(resp);
         toast.info("Welcome");
+
+        history.replace("/");
       })
-      .catch(({ request }) => {
-        let resp = JSON.parse(request.response);
-        toast.error(JSON.stringify(resp["Error"]));
+      .catch((request) => {
+        if (request.response) {
+          console.log(request.response.data);
+          let resp = request.response.data;
+          toast.error(JSON.stringify(resp["Error"]));
+        }
       });
   };
 

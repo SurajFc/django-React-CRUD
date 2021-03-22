@@ -4,12 +4,11 @@ import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
-function NavbarTop() {
+function NavbarTop({ isLoggedIn, globalLogout }) {
   let history = useHistory();
 
   const logout = () => {
-    localStorage.clear();
-    console.log("clear");
+    globalLogout();
     history.replace("/");
   };
 
@@ -35,7 +34,7 @@ function NavbarTop() {
               About
             </Nav.Link>
           </Nav>
-          {localStorage.getItem("access") ? (
+          {isLoggedIn ? (
             <Nav>
               <Button variant="danger" size="sm" onClick={() => logout()}>
                 Logout

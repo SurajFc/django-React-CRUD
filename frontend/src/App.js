@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 //Bootstrap css
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -19,14 +21,39 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
+  const [isLoggedIn, setisLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("access")) {
+      setisLoggedIn(true);
+    } else {
+      setisLoggedIn(false);
+    }
+  }, []);
+
+  const globalLogin = (resp) => {
+    console.log("in main app");
+    localStorage.setItem("refresh", resp.data.refresh);
+    localStorage.setItem("access", resp.data.access);
+    setisLoggedIn(true);
+  };
+  const globalLogout = () => {
+    setisLoggedIn(false);
+    localStorage.clear();
+  };
+
   return (
     <Router>
       <div className="App container-fluid">
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} globalLogout={globalLogout} />
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/login" component={Login} />
+          <Route
+            exact
+            path="/login"
+            children={<Login globalLogin={globalLogin} />}
+          />
           <Route exact path="/register" component={Register} />
         </Switch>
       </div>
