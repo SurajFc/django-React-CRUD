@@ -3,6 +3,8 @@ import { NavLink, useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { toast } from "react-toastify";
+toast.configure();
 
 function NavbarTop({ isLoggedIn, globalLogout }) {
   let history = useHistory();
@@ -10,6 +12,7 @@ function NavbarTop({ isLoggedIn, globalLogout }) {
   const logout = () => {
     globalLogout();
     history.replace("/");
+    toast.info("Logged out");
   };
 
   return (
