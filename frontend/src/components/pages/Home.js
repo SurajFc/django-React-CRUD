@@ -145,7 +145,7 @@ function Home() {
         paginationTotalRows={totalRows}
         paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
         onChangePage={(page) => {
-          setPage(page * pageRow - 10);
+          setPage(page * pageRow - pageRow);
         }}
         onChangeRowsPerPage={(currentRowsPerPage) => {
           setPageRow(currentRowsPerPage);
