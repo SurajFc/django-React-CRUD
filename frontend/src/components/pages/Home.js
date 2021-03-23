@@ -150,6 +150,7 @@ function Home() {
         onChangeRowsPerPage={(currentRowsPerPage) => {
           setPageRow(currentRowsPerPage);
         }}
+        responsive
       />
     </div>
   );

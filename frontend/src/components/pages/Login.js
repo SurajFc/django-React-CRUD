@@ -47,13 +47,13 @@ function Login({ globalLogin }) {
   };
 
   return (
-    <div className="container-fluid ">
+    <div className="container">
       <Form className="shadow m-4 p-4" onSubmit={handleSubmit(handleLogin)}>
         <Form.Group as={Row} controlId="formPlaintextEmail">
-          <Form.Label column sm="2">
+          <Form.Label column sm="3">
             Email
           </Form.Label>
-          <Col sm="10">
+          <Col sm="9">
             <Form.Control
               ref={register({
                 required: "this field is required",
@@ -77,10 +77,10 @@ function Login({ globalLogin }) {
         </Form.Group>
 
         <Form.Group as={Row} controlId="formPlaintextPassword">
-          <Form.Label column sm="2">
+          <Form.Label column sm="3">
             Password
           </Form.Label>
-          <Col sm="10">
+          <Col sm="9">
             <Form.Control
               ref={register({
                 required: "this field is required",

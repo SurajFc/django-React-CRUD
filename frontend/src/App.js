@@ -44,7 +44,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App container-fluid">
+      <div className="App container">
         <Navbar isLoggedIn={isLoggedIn} globalLogout={globalLogout} />
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
