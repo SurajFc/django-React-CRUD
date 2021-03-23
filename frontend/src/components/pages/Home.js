@@ -22,9 +22,13 @@ function Home() {
 
   const [editEmployee, seteditEmployee] = useState({});
 
+  const [page, setPage] = useState(0);
+  const [totalRows, setTotalRows] = useState(10);
+  const [pageRow, setPageRow] = useState(10);
+
   useEffect(() => {
     loadEmployees();
-  }, []);
+  }, [page, pageRow]);
 
   const columns = [
     {
@@ -83,9 +87,10 @@ function Home() {
 
   //Loading intial employess
   const loadEmployees = () => {
-    API.get("employee")
+    API.get(`employee?offset=${page}&limit=${pageRow}`)
       .then((res) => {
-        setemployee(res.data.reverse());
+        setemployee(res.data["results"].reverse());
+        setTotalRows(res.data["count"]);
       })
       .catch(({ request }) => {
         console.log(request);
@@ -131,7 +136,21 @@ function Home() {
         loadEmployees={loadEmployees}
       />
 
-      <DataTable pagination columns={columns} data={employee} />
+      <DataTable
+        pagination
+        paginationServer
+        highlightOnHover
+        columns={columns}
+        data={employee}
+        paginationTotalRows={totalRows}
+        paginationRowsPerPageOptions={[5, 10, 15, 20, 25, 30]}
+        onChangePage={(page) => {
+          setPage(page * pageRow - 10);
+        }}
+        onChangeRowsPerPage={(currentRowsPerPage) => {
+          setPageRow(currentRowsPerPage);
+        }}
+      />
     </div>
   );
 }
